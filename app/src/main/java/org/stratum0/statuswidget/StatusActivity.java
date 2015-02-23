@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * Created by tsuro on 9/1/13.
@@ -21,11 +22,11 @@ public class StatusActivity extends Activity implements Button.OnClickListener, 
 
     private SharedPreferences prefs;
     private SpaceStatus status;
-    EditText nameBox;
-    Button openCloseButton;
-    Button inheritButton;
-    TextView currentStatusText;
-    ProgressBar progressBar;
+    private EditText nameBox;
+    private Button openCloseButton;
+    private Button inheritButton;
+    private TextView currentStatusText;
+    private ProgressBar progressBar;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class StatusActivity extends Activity implements Button.OnClickListener, 
                 }
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("username", editable.toString());
-                editor.commit();
+                editor.apply();
             }
         });
 
@@ -108,7 +109,7 @@ public class StatusActivity extends Activity implements Button.OnClickListener, 
     @Override
     public void onPreSpaceStatusUpdate(Context context) {
         openCloseButton.setEnabled(false);
-        inheritButton.setVisibility(View.GONE);
+        inheritButton.setEnabled(false);
         currentStatusText.setVisibility(TextView.GONE);
         progressBar.setVisibility(ProgressBar.VISIBLE);
     }
@@ -122,11 +123,11 @@ public class StatusActivity extends Activity implements Button.OnClickListener, 
             openCloseButton.setEnabled(true);
 
             if(status.getStatus() == SpaceStatus.Status.OPEN) {
-                SimpleDateFormat isodate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                SimpleDateFormat isodate = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
                 openCloseButton.setText(getString(R.string.button_openClose_open));
                 currentStatusText.setText(String.format("%s (%s)", isodate.format(status.getLastChange().getTime()), status.getOpenedBy()));
                 if (!nameBox.getText().toString().equals(status.getOpenedBy())) {
-                    inheritButton.setVisibility(View.VISIBLE);
+                    inheritButton.setEnabled(true);
                 }
             }
             else {
@@ -134,9 +135,8 @@ public class StatusActivity extends Activity implements Button.OnClickListener, 
                 currentStatusText.setText(getString(R.string.status_closed));
             }
         }
-
         currentStatusText.setVisibility(TextView.VISIBLE);
-        progressBar.setVisibility(ProgressBar.INVISIBLE);
+        progressBar.setVisibility(ProgressBar.GONE);
         if (!progressBar.isIndeterminate()) {
             progressBar.setIndeterminate(true);
         }

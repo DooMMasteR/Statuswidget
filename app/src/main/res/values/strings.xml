@@ -21,7 +21,7 @@
 
     <!-- StratumsphereStatusProvider.java -->
     <string name="currentTime">Updated</string>
-    <string name="updating">updating...\n</string>
+    <string name="updating">updating…\n</string>
 
     <!-- layout/main.xml -->
     <string name="ImageViewDescription">Stratum0 Status</string>
@@ -31,5 +31,6 @@
     <string name="button_openClose_closed">Open the space</string>
     <string name="button_openClose_open">Close the space</string>
     <string name="button_inherit">Inherit Space Status</string>
+    <string name="name">Name</string>
 
 </resources>

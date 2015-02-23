@@ -12,6 +12,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import java.util.Calendar;
@@ -21,8 +22,8 @@ import java.util.TimeZone;
 public class StratumsphereStatusProvider extends AppWidgetProvider implements SpaceStatusListener {
 	
 	private static final int nID = 1;
-    private SpaceStatus status;
     private AppWidgetManager appWidgetManager;
+    private static Handler handler;
 
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -39,7 +40,7 @@ public class StratumsphereStatusProvider extends AppWidgetProvider implements Sp
 	}
 
 	@Override
-	public void onReceive(final Context context, final Intent intent) {
+	public void onReceive(@NonNull final Context context, @NonNull final Intent intent) {
 		if(intent.getAction().equals("click")) {
 
             boolean firstrun = context.getSharedPreferences("preferences", Context.MODE_PRIVATE).getBoolean("firstrun", true);
@@ -48,15 +49,16 @@ public class StratumsphereStatusProvider extends AppWidgetProvider implements Sp
                 Intent firstrunIntent = new Intent(context, FirstRunActivity.class);
                 firstrunIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(firstrunIntent);
-                context.getSharedPreferences("preferences", Context.MODE_PRIVATE).edit().putBoolean("firstrun", false).commit();
+                context.getSharedPreferences("preferences", Context.MODE_PRIVATE).edit().putBoolean("firstrun", false).apply();
             }
 
             // Increment click count for every received click intent
 			final SharedPreferences prefs = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
 			int clickCount = prefs.getInt("clicks", 0);
-			prefs.edit().putInt("clicks", ++clickCount).commit();
+			prefs.edit().putInt("clicks", ++clickCount).apply();
 
-			final Handler handler = new Handler() {
+
+			handler = new Handler() {
 				public void handleMessage(Message msg) {
 
 					int clickCount = prefs.getInt("clicks", 0);
@@ -75,7 +77,7 @@ public class StratumsphereStatusProvider extends AppWidgetProvider implements Sp
 						context.sendBroadcast(updateIntent);
 					}
 
-					prefs.edit().putInt("clicks", 0).commit();
+					prefs.edit().putInt("clicks", 0).apply();
 				}
 			};
 
@@ -113,7 +115,7 @@ public class StratumsphereStatusProvider extends AppWidgetProvider implements Sp
     @Override
     public void onPostSpaceStatusUpdate(Context context) {
 
-        status = SpaceStatus.getInstance();
+        SpaceStatus status = SpaceStatus.getInstance();
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.main);
         int currentImage = R.drawable.stratum0_unknown;
 

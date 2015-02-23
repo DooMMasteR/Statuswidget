@@ -11,9 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="@string/name"
         android:ems="10"
         android:id="@+id/nameBox"
+        android:gravity="center"
         android:layout_gravity="center" />
 
     <Button
@@ -28,15 +29,13 @@
         android:layout_height="wrap_content"
         android:text="@string/button_inherit"
         android:id="@+id/inheritButton"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone" />
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/currentStatus"
-        android:layout_gravity="center"
-        android:textAlignment="center" />
+        android:layout_gravity="center" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"

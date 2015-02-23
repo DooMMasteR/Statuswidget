@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- AndroidManifest.xml -->
+    <string name="app_name">StratumsphereStatusWidget</string>
+    <string name="statusActivityTitle"> Status ändern</string>
+
+    <!-- Notification texts -->
+    <string name="nNotOpen">Du bist im Space, aber er ist nicht als offen gemeldet.</string>
+    <string name="nNotOpenLatestEventInfo1">Achtung!</string>
+    <string name="nNotOpenLatestEventInfo2">Schnell den Space als offen makieren.</string>
+
+    <!-- FirstrunActivity.java -->
+    <string name="firstrunExplanation">Einzelklick löst ein Update aus,\nDoppelklick ermöglicht das Setzen des Spacestatus</string>
+    <string name="button_dismiss">Verstanden!</string>
+
+    <!-- StatusActivity.java -->
+    <string name="editText_defaultName">&lt;dein Nickname&gt;</string>
+    <string name="status_unknown">Status unbekannt</string>
+    <string name="status_closed">Geschlossen</string>
+
+    <!-- StratumsphereStatusProvider.java -->
+    <string name="currentTime">Aktualisiert</string>
+    <string name="updating">aktualisiere...\n</string>
+
+    <!-- layout/main.xml -->
+    <string name="ImageViewDescription">Stratum0 Status</string>
+    <string name="defaultTime">Aktualisiert:\n--:--</string>
+
+    <!-- layout/status_layout.xml -->
+    <string name="button_openClose_closed">Space öffnen</string>
+    <string name="button_openClose_open">Space schließen</string>
+    <string name="button_inherit">Spacestatus übernehmen</string>
+
+</resources>
